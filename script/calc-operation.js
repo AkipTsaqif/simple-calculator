@@ -45,7 +45,7 @@ const keyHandlers = {
             firstOperationTrue('+')                                                    // if yes it does nothing to the result display, only after another number and
                                                                                     // another + is pressed it will display the result
         } else if (currentNumber !== 0 && currentOperator !== '') {
-            OPS_DISPLAY.textContent = '+'
+            OPS_DISPLAY.textContent += '+'
             resultNumber = operate(resultNumber, currentNumber, currentOperator);
             RESULT.textContent = resultNumber.toString();
         }
@@ -55,7 +55,7 @@ const keyHandlers = {
             firstOperationTrue("-")                                                     // if yes it does nothing to the result display, only after another number and
                                                                                     // another + is pressed it will display the result
         } else if (currentNumber !== 0 && currentOperator !== '') {
-            OPS_DISPLAY.textContent = '-'
+            OPS_DISPLAY.textContent += '-'
             resultNumber = operate(resultNumber, currentNumber, currentOperator);
             RESULT.textContent = resultNumber.toString();
         }
@@ -89,6 +89,27 @@ const keyHandlers = {
     },
     '2': () => {
         numberPressed('2');
+    },
+    '3': () => {
+        numberPressed('3');
+    },
+    '4': () => {
+        numberPressed('4');
+    },
+    '5': () => {
+        numberPressed('5');
+    },
+    '6': () => {
+        numberPressed('6');
+    },
+    '7': () => {
+        numberPressed('7');
+    },
+    '8': () => {
+        numberPressed('8');
+    },
+    '9': () => {
+        numberPressed('9');
     },
     'Enter': () => {                                                                // now for pressing enter (equal btn), i've set it so that if another number is
         if (currentNumber !== 0 && currentOperator !== '') {                        // pressed it will reset everything (just like a normal calculator i've been using)
@@ -126,7 +147,13 @@ const btnHandlers = {
     '00': keyHandlers['00'],
     '1': keyHandlers['1'],
     '2': keyHandlers['2'],
-    // and so on
+    '3': keyHandlers['3'],
+    '4': keyHandlers['4'],
+    '5': keyHandlers['5'],
+    '6': keyHandlers['6'],
+    '7': keyHandlers['7'],
+    '8': keyHandlers['8'],
+    '9': keyHandlers['9']
 };
 
 for (let key in btnHandlers) {
