@@ -30,22 +30,35 @@ const numberPressed = (num) => {
     add other keys such as + - / * to here (including enter key)
     this is better than using switch/if-else statements
 */
+
+// modify variables if first operaiont is true function
+const firstOperationTrue = (operation) =>{
+    resultNumber = currentNumber;                                           // if yes it does nothing to the result display, only after another number and
+    currentNumber = 0;                                                      // another + is pressed it will display the result
+    currentOperator = operation;
+    OPS_DISPLAY.textContent += operation;
+    firstOperation = false;
+}
 const keyHandlers = {
     '+': () => {                                                                    // some bugs could arise from this implementation but at least for now it works
         if (firstOperation) {                                                       // first it checks whether this is the first time a + is pressed
-            resultNumber = currentNumber;                                           // if yes it does nothing to the result display, only after another number and
-            currentNumber = 0;                                                      // another + is pressed it will display the result
-            currentOperator = '+';
-            OPS_DISPLAY.textContent += '+';
-            firstOperation = false;
+            firstOperationTrue('+')                                                    // if yes it does nothing to the result display, only after another number and
+                                                                                    // another + is pressed it will display the result
         } else if (currentNumber !== 0 && currentOperator !== '') {
-            OPS_DISPLAY.textContent += '+';
+            OPS_DISPLAY.textContent = '+'
             resultNumber = operate(resultNumber, currentNumber, currentOperator);
             RESULT.textContent = resultNumber.toString();
         }
     },
     '-': () => {
-        OPS_DISPLAY.textContent += String.fromCharCode(45);
+        if (firstOperation) {                                                       // first it checks whether this is the first time a + is pressed
+            firstOperationTrue("-")                                                     // if yes it does nothing to the result display, only after another number and
+                                                                                    // another + is pressed it will display the result
+        } else if (currentNumber !== 0 && currentOperator !== '') {
+            OPS_DISPLAY.textContent = '-'
+            resultNumber = operate(resultNumber, currentNumber, currentOperator);
+            RESULT.textContent = resultNumber.toString();
+        }
     },
     '*': () => {
         OPS_DISPLAY.textContent += String.fromCharCode(42);
