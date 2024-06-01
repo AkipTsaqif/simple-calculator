@@ -12,28 +12,34 @@
     </header>
     <main>
         <div class="body">
-            <div class="screen"></div>
+            <div class="screen">
+                <p id="ops-display"></p> <!-- this is where the operation will be displayed -->
+                <p id="result">0</p>
+            </div>
             <div class="buttons">
-                <button>7</button>
-                <button>8</button>
-                <button>9</button>
-                <button>+</button>
-                <button>4</button>
-                <button>5</button>
-                <button>6</button>
-                <button>-</button>
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>×</button>
-                <button>0</button>
-                <button>.</button>
-                <button>/</button>
-                <button>=</button>
-                <button>C</button>
+                <button id="7">7</button>
+                <button id="8">8</button>
+                <button id="9">9</button>
+                <button id="add">+</button>
+                <button id="4">4</button>
+                <button id="5">5</button>
+                <button id="6">6</button>
+                <button id="subtract">-</button>
+                <button id="1">1</button>
+                <button id="2">2</button>
+                <button id="3">3</button>
+                <button id="multiply">×</button>
+                <button id="0">0</button>
+                <button id="00">00</button>
+                <button id="comma">.</button>
+                <button id="divide">/</button>
+                <button id="sign">+/-</button>
+                <button id="clear">C</button>
+                <button id="equal">=</button>
             </div>
         </div>
     </main>
-    <script src="./script/styling.js" defer></script>
+    <script src="./script/styling.js" defer></script> <!-- put any kind of styling using js in here (NOT the calculator operation - just the styling)-->
+    <script src="./script/calc-operation.js" defer></script> <!-- put the main logic in here -->
 </body>
 </html>
