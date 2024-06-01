@@ -207,8 +207,6 @@ let secondNumber=''
 let operatorPressed=false
 let operator=''
 
-
-
 const computations={
     "add":(num1,num2)=>{
         return num1+num2
@@ -292,7 +290,6 @@ const buttonHandlers={
     "subtract":()=>{
         if(!operatorPressed){
             operatorPressed=true
-          
         }
         else{
             compute(firstNumberOrAnswer,secondNumber,operator)
@@ -302,7 +299,6 @@ const buttonHandlers={
     "multiply":()=>{
         if(!operatorPressed){
             operatorPressed=true
-          
         }
         else{
             compute(firstNumberOrAnswer,secondNumber,operator)
@@ -312,7 +308,6 @@ const buttonHandlers={
     "divide":()=>{
         if(!operatorPressed){
             operatorPressed=true
-            
         }
         else{
             compute(firstNumberOrAnswer,secondNumber,operator)
@@ -344,10 +339,12 @@ for (let key in buttonHandlers) {
 
     let button = document.getElementById(key);
     if (button) {
-        button.addEventListener('click',()=>{buttonHandlers[key]()
+        button.addEventListener('click',()=>{
+            buttonHandlers[key]()
             console.log(`this is num one : ${firstNumberOrAnswer}`)
             console.log(`this is num two : ${secondNumber}`)
             console.log(`this is operator : ${operator}`)
+            
             OPS_DISPLAY.innerText=`${firstNumberOrAnswer} ${computationsSymbols[operator]?computationsSymbols[operator]:''} ${secondNumber}`
             console.log('---------------')
         } );
@@ -358,8 +355,9 @@ for (let key in buttonHandlers) {
 const compute =(numString1,numString2,operation)=>{
     const num1=parseFloat(numString1);
     const num2=parseFloat(numString2);
-
-    const computed=computations[operation](num1,num2)
+    var computed;
+   
+    computed = computations[operation](num1,num2)
     firstNumberOrAnswer= Number(computed.toFixed(4)).toString()
     secondNumber=''
     RESULT.textContent=Number(computed.toFixed(4))
