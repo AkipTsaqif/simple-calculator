@@ -12,7 +12,9 @@ let currentOperator = "";
 const numberPressed = (num) => {
     if (num === "00" && currentNumber === 0) return;
     if (OPS_DISPLAY.textContent === "0") OPS_DISPLAY.textContent = "";
-    else if (OPS_DISPLAY.textContent.match(/[\+\-\*/=]0(?!\.)/g) !== null)
+    else if (
+        OPS_DISPLAY.textContent.match(/[\+\-\*/=]0(?![\.\+\-\*/=])/g) !== null
+    )
         OPS_DISPLAY.textContent = OPS_DISPLAY.textContent.slice(0, -1);
 
     OPS_DISPLAY.textContent += num;
@@ -134,6 +136,8 @@ const keyHandlers = {
         OPS_DISPLAY.textContent = "";
         currentNumber = 0;
         resultNumber = 0;
+        currentOperator = "";
+        firstOperation = true;
     },
     ".": () => {
         if (!currentNumber.includes(".")) {
@@ -142,12 +146,19 @@ const keyHandlers = {
         }
     },
     "+/-": () => {
-        if (currentNumber !== 0) {
+        if (currentNumber !== 0 && resultNumber === 0) {
             currentNumber =
                 currentNumber < 0
                     ? Math.abs(currentNumber)
                     : -Math.abs(currentNumber);
             OPS_DISPLAY.textContent = currentNumber;
+        } else if (resultNumber !== 0) {
+            resultNumber =
+                resultNumber < 0
+                    ? Math.abs(resultNumber)
+                    : -Math.abs(resultNumber);
+            RESULT.textContent = resultNumber;
+            OPS_DISPLAY.textContent = resultNumber;
         }
     },
     0: () => {
@@ -210,15 +221,21 @@ const btnHandlers = {
 for (let key in btnHandlers) {
     let button = document.getElementById(key);
     if (button) {
-        button.addEventListener("click", btnHandlers[key]);
+        button.addEventListener("click", () => {
+            if (resultNumber === Infinity) {
+                btnHandlers["clear"]();
+            } else {
+                btnHandlers[key]();
+            }
+        });
     }
 }
 
 document.addEventListener("keydown", (e) => {
-    if (!isNaN(e.key)) {
+    if (!isNaN(e.key) && resultNumber !== Infinity) {
         e.preventDefault();
         numberPressed(e.key);
-    } else if (e.key in keyHandlers) {
+    } else if (e.key in keyHandlers && resultNumber !== Infinity) {
         e.preventDefault();
 
         if (OPS_DISPLAY.textContent.length === 0) return;
@@ -231,6 +248,8 @@ document.addEventListener("keydown", (e) => {
             return;
         }
         if (!e.key === "Backspace") currentNumber = 0;
+    } else if (resultNumber === Infinity) {
+        keyHandlers["Delete"]();
     }
 });
 
