@@ -225,7 +225,8 @@ for (let key in btnHandlers) {
             if (resultNumber === Infinity) {
                 btnHandlers["clear"]();
             } else {
-                btnHandlers[key]();
+                if (OPS_DISPLAY.textContent.length === 0 && isNaN(key)) return;
+                else btnHandlers[key]();
             }
         });
     }
